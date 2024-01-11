@@ -1,0 +1,67 @@
+.auth {
+    width: 410px;
+    margin: 73px auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 100px;
+
+    &__logo {
+        width: 100px;
+        height: 69px;
+        background: url('../../../../assets/logo-auth-page.svg');
+    }
+    &__title {
+        font-weight: 700;
+        font-size: 2,25rem;
+        margin: 0 0 15px;
+    }
+
+    &__subtitle {
+        font-weight: 400;
+        color: #6F727A;
+        margin: 0 0 15px;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        &__item {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            height: 74px;
+            position: relative;
+
+            label {
+                font-family: 'DM Sans', sans-serif;
+                font-size: 0.875rem;
+                font-weight: 700;
+            }
+
+            input {
+                height: 50px;
+                border: 1px solid #a9abad;
+                border-radius: 5px;
+            }
+
+            button {
+                position: absolute;
+                top: 45px;
+                right: 20px;
+                border: none;
+                background: inherit;
+                cursor: pointer;
+            }
+
+            .icon-eye {
+                background: url('../../../../assets/icon-eye.svg');
+                width: 20px;
+                height: 14px;
+            }
+
+        }
+    }
+}
