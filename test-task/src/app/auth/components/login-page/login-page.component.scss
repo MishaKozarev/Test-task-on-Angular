@@ -45,11 +45,21 @@
                 height: 50px;
                 border: 1px solid #a9abad;
                 border-radius: 5px;
+                padding: 0 10px;
+                font-size: 0.875rem;
+                font-weight: 400;
+                letter-spacing: 1px;
+            }
+
+            input::placeholder {
+                color: #6F727A;
             }
 
             button {
+                width: 20px;
+                height: 20px;
                 position: absolute;
-                top: 45px;
+                top: 41px;
                 right: 20px;
                 border: none;
                 background: inherit;
@@ -58,10 +68,27 @@
 
             .icon-eye {
                 background: url('../../../../assets/icon-eye.svg');
-                width: 20px;
+                width: 100%;
                 height: 14px;
             }
 
+            .icon-eye.active {
+                background: url('../../../../assets/icon-eye-closed.svg');
+                height: 7px;
+            }
+        }
+
+        &__footer {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &__checkbox {
+            display: flex;
+            gap: 10px;
+            input {
+                background: #4C54F4;
+            }
         }
     }
 }

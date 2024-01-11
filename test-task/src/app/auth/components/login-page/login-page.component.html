@@ -8,6 +8,7 @@
                 <label
                     for="inputLogin">Логин*</label>
                 <input
+                    placeholder="mail@simmmple.com"
                     id="inputLogin"
                     type="text">
             </div>
@@ -15,11 +16,24 @@
                 <label
                     for="inputPassword">Пароль*</label>
                 <input
+                    [type]="inputType"
+                    placeholder="Минимум 8 символов"
                     id="inputPassword"
-                    type="password">
-                <button>
-                    <div class="icon-eye"></div>
+                    >
+                <button type="button" (click)="toggleInputType()">
+                    <div
+                        [ngClass]="inputType==='password'
+                            ?'icon-eye'
+                            :'icon-eye active'">
+                    </div>
                 </button>
+            </div>
+            <div class="form__footer">
+                 <div class="form__checkbox">
+                    <input id="inputCheckbox" type="checkbox">
+                    <label for="inputCheckbox">Запомнить</label>
+                 </div>
+                <a >Забыли пароль?</a>
             </div>
         </form>
     </div>

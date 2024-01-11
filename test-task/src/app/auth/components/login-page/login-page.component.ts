@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
+  inputType: string = "password";
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  toggleInputType() {
+    this.inputType = (this.inputType === "password") ? "text" : "password";
   }
 
 }
