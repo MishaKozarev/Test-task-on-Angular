@@ -3,28 +3,31 @@
     <div class="auth__content">
         <h1 class="auth__title">Добро пожаловать</h1>
         <h4 class="auth__subtitle">Авторизуйтесь чтобы продолжить</h4>
-        <form class="form">
+        <form
+            class="form"
+            [formGroup]="authForm">
             <div class="form__item">
-                <label
-                    for="inputLogin">Логин*</label>
+                <label for="inputLogin">Логин*</label>
                 <input
+                    formControlName="email"
                     placeholder="mail@simmmple.com"
                     id="inputLogin"
-                    type="text">
+                    type="text"
+                >
             </div>
             <div class="form__item">
-                <label
-                    for="inputPassword">Пароль*</label>
+                <label for="inputPassword">Пароль*</label>
                 <input
+                    formControlName="password"
                     [type]="inputType"
                     placeholder="Минимум 8 символов"
                     id="inputPassword"
-                    >
+                >
                 <button type="button" (click)="toggleInputType()">
                     <div
                         [ngClass]="inputType==='password'
-                            ?'icon-eye'
-                            :'icon-eye active'">
+                            ?'icon-eye active'
+                            :'icon-eye'">
                     </div>
                 </button>
             </div>
@@ -36,7 +39,10 @@
                 </label>
                 <a >Забыли пароль?</a>
             </div>
-            <button class="form__btn">Войти</button>
+            <button
+                [disabled]="authForm.invalid"
+                class="form__btn"
+                type="submit">Войти</button>
         </form>
     </div>
 </div>

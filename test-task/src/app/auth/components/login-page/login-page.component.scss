@@ -141,6 +141,9 @@
             font-weight: 500;
             cursor: pointer;
         }
+        &__btn:disabled {
+            background: #3d3e41;
+        }
     }
 }
 
