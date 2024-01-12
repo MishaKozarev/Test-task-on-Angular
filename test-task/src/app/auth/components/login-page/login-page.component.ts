@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { UserDataSignin, UserSigninResponse } from '../../models/user-data.models';
 
@@ -20,6 +21,7 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private route: Router,
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +45,8 @@ export class LoginPageComponent implements OnInit {
 
   public toggleInputType(): void {
     this.inputType = (this.inputType === "password") ? "text" : "password";
+    this.route.navigate(['/dashboard']);
+    console.log('route');
   }
 
   public onSubmitForm(): void {
@@ -61,12 +65,17 @@ export class LoginPageComponent implements OnInit {
 
   private handleSigninSuccess(data: UserSigninResponse): void {
     this.isSubmitForm = false;
-    this.message = data.data.userInfo.userName;
+    this.message = 'Вы успешно вошли';
+    this.routingToDashboard();
   }
 
   private handleSigninError(err: HttpErrorResponse): void {
     this.isSubmitForm = false;
     this.message = err.error.message;
+  }
+
+  private routingToDashboard() {
+    this.route.navigate(['/dashboard']);
   }
 
 }
