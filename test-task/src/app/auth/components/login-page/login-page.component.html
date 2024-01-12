@@ -4,6 +4,7 @@
         <h1 class="auth__title">Добро пожаловать</h1>
         <h4 class="auth__subtitle">Авторизуйтесь чтобы продолжить</h4>
         <form
+            (ngSubmit)="onSubmitForm()"
             class="form"
             [formGroup]="authForm">
             <div class="form__item">
