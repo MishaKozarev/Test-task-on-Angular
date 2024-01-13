@@ -9,16 +9,18 @@ export interface UserSigninResponse {
     string
   ],
   total: number,
-  data: {
-    userInfo: {
-      userId: number,
-      userName: string,
-      userAvatar: string,
-      userRole: number
-    },
-    tokens: {
-      token: string,
-      refreshToken: string
-    }
+  data: UserSigninResponseSuccess
+}
+
+export interface UserSigninResponseSuccess {
+  userInfo: {
+    userId: number,
+    userName: string,
+    userAvatar: string,
+    userRole: number
+  },
+  tokens: {
+    token: string,
+    refreshToken: string
   }
 }
