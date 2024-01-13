@@ -3,7 +3,6 @@
     min-height: 60px;
     background: white;
     border-radius: 5px;
-    border-left: 5px solid #FC5A5A;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
     display: flex;
     align-items: center;
@@ -13,10 +12,7 @@
     top: 100px;
     right: 100px;
 
-    &__icon {
-        background: url('../../../../assets/icon-union.svg');
-        width: 23.33px;
-        height: 23.33px;
+    svg {
         margin: 0 0 0 16px;
     }
 
@@ -37,6 +33,12 @@
             color: rgba(111, 114, 122, 0.5);
         }
     }
+}
 
+.color-success {
+    border-left: 5px solid #249F5D;
+}
 
+.color-error {
+    border-left: 5px solid #FC5A5A;
 }

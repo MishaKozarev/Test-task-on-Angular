@@ -1,16 +1,18 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { UserDataSignin, UserSigninResponse } from '../../models/user-data.models';
+import { TooltipService } from 'src/app/core/services/tooltip/tooltip.service';
+import { UserDataSignin } from '../../models/user-data.models';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent implements OnInit, OnDestroy {
   public inputType: string = "password";
   public isSubmitForm: boolean = false;
   public message: string = '';
@@ -18,17 +20,22 @@ export class LoginPageComponent implements OnInit {
     email: FormControl;
     password: FormControl;
   }>
+  public isResponseSuccess = false;
+  private ngUnsubscribe$ = new Subject<void>();
+
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private route: Router,
+    private tooltipService: TooltipService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.initForm();
   }
 
-  public initForm(): void {
+  private initForm(): void {
     this.authForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -45,8 +52,6 @@ export class LoginPageComponent implements OnInit {
 
   public toggleInputType(): void {
     this.inputType = (this.inputType === "password") ? "text" : "password";
-    this.route.navigate(['/dashboard']);
-    console.log('route');
   }
 
   public onSubmitForm(): void {
@@ -56,26 +61,36 @@ export class LoginPageComponent implements OnInit {
         password: this.authForm.value.password
       };
       this.authService.sendSigninRequest(userData)
+        .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe({
-          next: (data) => this.handleSigninSuccess(data as UserSigninResponse),
+          next: () => this.handleSigninSuccess(),
           error: (err) => this.handleSigninError(err)
         })
     }
   }
 
-  private handleSigninSuccess(data: UserSigninResponse): void {
+  private handleSigninSuccess(): void {
     this.isSubmitForm = false;
     this.message = 'Вы успешно вошли';
+    this.tooltipService.showTooltip(this.message, true);
+    this.isResponseSuccess = true;
     this.routingToDashboard();
   }
 
   private handleSigninError(err: HttpErrorResponse): void {
     this.isSubmitForm = false;
-    this.message = err.error.message;
+    this.message = String(err.error.errors);
+    this.tooltipService.showTooltip(this.message, false);
+    this.isResponseSuccess = false;
+    this.authForm.reset();
   }
 
   private routingToDashboard() {
     this.route.navigate(['/dashboard']);
   }
 
+  public ngOnDestroy(): void {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
+  }
 }
