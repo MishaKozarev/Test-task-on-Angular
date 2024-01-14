@@ -1,3 +1,20 @@
-<div *ngIf="profile$ | async as profile">
-    <p>{{profile.userName}}</p>
+<div class="dashboard">
+    <div class="profile" *ngIf="profile$ | async as profile">
+        <img [src]="profile.userAvatar" class="profile__avatar" alt="avatar">
+        <div class="profile__content">
+            <p class="profile__name">{{profile.userName}}</p>
+            <p class="profile__id">ID пользователя: <span>{{profile.userId}}</span></p>
+        </div>
+    </div>
+    <form class="form">
+        <label for="profile">Сообщение</label>
+        <input id="profile" type="text">
+        <div class="form__btn-container">
+            <button class="form__btn form__btn-error">Ошибка</button>
+            <button class="form__btn form__btn-warning">Предупреждение</button>
+            <button class="form__btn form__btn-success">Успех</button>
+            <button class="form__btn form__btn-message">Сообщение</button>
+        </div>
+    </form>
 </div>
+
