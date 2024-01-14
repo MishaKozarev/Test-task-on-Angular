@@ -2,11 +2,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { CookieService } from 'ngx-cookie-service';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { TooltipService } from 'src/app/core/services/tooltip/tooltip.service';
-import { UserDataSignin, UserSigninResponse, UserSigninResponseSuccess } from '../../models/user-data.models';
+import { getProfileAction } from 'src/app/store/actions/profile.actions';
+import { ErrorsDescription } from '../../constants/errors.enum';
+import { TokenDescription } from '../../constants/token.enum';
+import { UserDataSignin, UserSigninResponseSuccess } from '../../models/user-data.models';
 
 @Component({
   selector: 'app-login-page',
@@ -24,13 +28,13 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   public isResponseSuccess = false;
   private ngUnsubscribe$ = new Subject<void>();
 
-
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private route: Router,
     private tooltipService: TooltipService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private store: Store,
   ) {}
 
   public ngOnInit(): void {
@@ -44,11 +48,11 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  get email() {
+  public get email() {
     return this.authForm.get('email') as FormControl;
   }
 
-  get password() {
+  public get password() {
     return this.authForm.get('password') as FormControl;
   }
 
@@ -73,11 +77,24 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   private handleSigninSuccess(data: UserSigninResponseSuccess): void {
     this.isSubmitForm = false;
-    this.message = 'Вы успешно вошли';
+    this.message = ErrorsDescription.SUCCESS;
     this.tooltipService.showTooltip(this.message, true);
     this.isResponseSuccess = true;
     this.saveCookies(data);
+    this.saveProfileToStore(data);
     this.routingToDashboard();
+  }
+
+  private saveProfileToStore(data: UserSigninResponseSuccess) {
+    const profileDataForAction = {
+      profile: {
+        userId: data.userInfo.userId,
+        userName: data.userInfo.userName,
+        userAvatar: data.userInfo.userAvatar,
+        userRole: data.userInfo.userRole
+      }
+    }
+    this.store.dispatch(getProfileAction(profileDataForAction));
   }
 
   private handleSigninError(err: HttpErrorResponse): void {
@@ -85,9 +102,9 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     if (err.error.errors) {
       this.message = String(err.error.errors);
     } else if (err.status === 0){
-      this.message = 'Отсутствует соединение с интернетом';
+      this.message = ErrorsDescription.NO_CONNECT;
     } else {
-      this.message = 'Ошибка сервера';
+      this.message = ErrorsDescription.ERROR_SERVER;
     }
     this.tooltipService.showTooltip(this.message, false);
     this.isResponseSuccess = false;
@@ -95,11 +112,11 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   private saveCookies(data: UserSigninResponseSuccess): void {
-    this.cookieService.set('token', data.tokens.token);
-    this.cookieService.set('refreshToken', data.tokens.refreshToken);
+    this.cookieService.set(TokenDescription.TOKEN, data.tokens.token);
+    this.cookieService.set(TokenDescription.TOKEN, data.tokens.refreshToken);
   }
 
-  private routingToDashboard() {
+  private routingToDashboard(): void {
     this.route.navigate(['/dashboard']);
   }
 
