@@ -4,8 +4,6 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { AuthRoutingModule } from './auth-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
-
 @NgModule({
   declarations: [
     LoginPageComponent

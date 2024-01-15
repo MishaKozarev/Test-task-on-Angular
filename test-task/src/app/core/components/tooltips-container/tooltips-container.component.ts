@@ -18,7 +18,7 @@ export class TooltipsContainerComponent implements OnInit {
 
   constructor(private store: Store) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.tooltipItems$ = this.store.select(selectAlertNotifies);
   }
 

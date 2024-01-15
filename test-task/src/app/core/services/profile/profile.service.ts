@@ -19,7 +19,7 @@ export class ProfileService {
     userName: string,
     userAvatar: string,
     userRole: number
-    ) {
+  ): void {
      this.profileDataSubject.next({userId, userName, userAvatar, userRole});
   }
 
