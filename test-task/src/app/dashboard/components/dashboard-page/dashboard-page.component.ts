@@ -6,6 +6,7 @@ import { UserProfile } from 'src/app/core/models/profile.models';
 import { alertAddAlertAction } from 'src/app/store/actions/tooltip.actions';
 import { TooltipItem } from 'src/app/store/models/tooltip.models';
 import { selectProfile } from 'src/app/store/selectors/profile.selectors';
+import { TooltipButtonText, TooltipColor, TooltipMessages } from '../../constants/tooltip-data.enum';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -17,6 +18,22 @@ export class DashboardPageComponent implements OnInit {
   public color$: Observable<TooltipItem | null> | undefined;
   public messageForm!: FormGroup<{message: FormControl}>;
   public messageValue!:string;
+  public tooltipMessages = {
+    error: TooltipMessages.error,
+    warning: TooltipMessages.warning,
+    success: TooltipMessages.success
+  };
+  public tooltipColor = {
+    red: TooltipColor.red,
+    gold: TooltipColor.gold,
+    green: TooltipColor.green,
+  }
+  public buttonText = {
+    error: TooltipButtonText.error,
+    message: TooltipButtonText.message,
+    success: TooltipButtonText.success,
+    warning: TooltipButtonText.warning,
+  }
 
   constructor(
     private store: Store,
@@ -39,7 +56,7 @@ export class DashboardPageComponent implements OnInit {
   }
 
   public onSubmitForm(): void {
-    if (this.messageForm.status === 'VALID') {
+    if (!this.messageForm.invalid) {
       const messageValue = this.message.value;
       this.messageValue = messageValue;
 
@@ -48,7 +65,7 @@ export class DashboardPageComponent implements OnInit {
       alertAddAlertAction({
         tooltip: {
           message: this.messageValue,
-          color: 'gold',
+          color: TooltipColor.gold,
           id: window.crypto.randomUUID()
         }
       })

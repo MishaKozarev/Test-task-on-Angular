@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { CookieService } from 'ngx-cookie-service';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { TooltipColor } from 'src/app/dashboard/constants/tooltip-data.enum';
 import { getProfileAction } from 'src/app/store/actions/profile.actions';
 import { alertAddAlertAction } from 'src/app/store/actions/tooltip.actions';
 import { ErrorsDescription } from '../../constants/errors.enum';
@@ -60,7 +61,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   public onSubmitForm(): void {
-    if (this.authForm.status === 'VALID') {
+    if (!this.authForm.invalid) {
       const userData: UserDataSignin = {
         login: this.authForm.value.email,
         password: this.authForm.value.password
@@ -77,7 +78,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   private handleSigninSuccess(data: UserSigninResponseSuccess): void {
     this.isSubmitForm = false;
     this.message = ErrorsDescription.SUCCESS;
-    this.showTooltip(this.message, 'green');
+    this.showTooltip(this.message, TooltipColor.green);
     this.isResponseSuccess = true;
     this.saveCookies(data);
     this.saveProfileToStore(data);
@@ -105,7 +106,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     } else {
       this.message = ErrorsDescription.ERROR_SERVER;
     }
-    this.showTooltip(this.message, 'red');
+    this.showTooltip(this.message, TooltipColor.red);
     this.isResponseSuccess = false;
     this.authForm.reset();
   }

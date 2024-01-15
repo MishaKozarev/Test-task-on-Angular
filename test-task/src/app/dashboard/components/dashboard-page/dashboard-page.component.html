@@ -11,10 +11,18 @@
         <label for="profile">Сообщение</label>
         <input formControlName="message" id="profile" type="text">
         <div class="form__btn-container">
-            <button (click)="showTooltip(btnError.innerHTML, 'red')" #btnError type="button" class="form__btn form__btn-error">Ошибка</button>
-            <button (click)="showTooltip(btnWarning.innerHTML, 'gold')" #btnWarning type="button" class="form__btn form__btn-warning">Предупреждение</button>
-            <button (click)="showTooltip(btnSuccess.innerHTML, 'green')" #btnSuccess type="button" class="form__btn form__btn-success">Успех</button>
-            <button [disabled]="messageForm.invalid" #btnMessage type="submit" class="form__btn form__btn-message">Сообщение</button>
+            <button (click)="showTooltip(tooltipMessages.error, tooltipColor.red)"
+                type="button"
+                class="form__btn form__btn-error">{{buttonText.error}}</button>
+            <button (click)="showTooltip(tooltipMessages.warning, tooltipColor.gold)"
+                type="button"
+                class="form__btn form__btn-warning">{{buttonText.message}}</button>
+            <button (click)="showTooltip(tooltipMessages.success, tooltipColor.green)"
+                type="button"
+                class="form__btn form__btn-success">{{buttonText.success}}</button>
+            <button [disabled]="messageForm.invalid"
+                type="submit"
+                class="form__btn form__btn-message">{{buttonText.warning}}</button>
         </div>
     </form>
 </div>
