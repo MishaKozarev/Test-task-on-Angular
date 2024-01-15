@@ -1,3 +1,4 @@
 export enum ReducerKey {
-    profileState = 'profileState'
+    profileState = 'profileState',
+    tooltipState = 'tooltipState',
 }

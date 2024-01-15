@@ -1,45 +1,31 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
-import { TooltipService } from '../../services/tooltip/tooltip.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { alertDeleteNotifyAction } from 'src/app/store/actions/tooltip.actions';
+
+interface InfoNotify {
+  message: string;
+  color: string;
+  id: string;
+}
 
 @Component({
   selector: 'app-tooltip',
   templateUrl: './tooltip.component.html',
   styleUrls: ['./tooltip.component.scss']
 })
-export class TooltipComponent implements OnInit, OnDestroy {
-  public message: string = '';
-  public isResponseSuccess = false;
-  private ngUnsubscribe$ = new Subject<void>();
+export class TooltipComponent implements OnInit {
+  @Input() public notifyInfo!: InfoNotify;
 
   constructor(
-    private tooltipService: TooltipService
+    private store: Store,
   ) {}
 
   public ngOnInit(): void {
-    this.initTooltipService();
+    setTimeout(() => this.deleteNotify(), 15000);
   }
 
-  private initTooltipService() {
-    this.tooltipService.tooltip$
-    .pipe(takeUntil(this.ngUnsubscribe$))
-    .subscribe(({message, isSuccess}) => {
-      this.message = message;
-      this.isResponseSuccess = isSuccess;
-      setTimeout(() => {
-        this.message = '';
-        this.isResponseSuccess = false;
-      }, 15000);
-    });
-  }
-
-  public closedTooltip(): void {
-    this.message = '';
-  }
-
-  public ngOnDestroy(): void {
-    this.ngUnsubscribe$.next();
-    this.ngUnsubscribe$.complete();
+  public deleteNotify() {
+    this.store.dispatch(alertDeleteNotifyAction({ id: this.notifyInfo.id }));
   }
 
 }

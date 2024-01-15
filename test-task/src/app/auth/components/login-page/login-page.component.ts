@@ -6,8 +6,8 @@ import { Store } from '@ngrx/store';
 import { CookieService } from 'ngx-cookie-service';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { TooltipService } from 'src/app/core/services/tooltip/tooltip.service';
 import { getProfileAction } from 'src/app/store/actions/profile.actions';
+import { alertAddAlertAction } from 'src/app/store/actions/tooltip.actions';
 import { ErrorsDescription } from '../../constants/errors.enum';
 import { TokenDescription } from '../../constants/token.enum';
 import { UserDataSignin, UserSigninResponseSuccess } from '../../models/user-data.models';
@@ -32,7 +32,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private authService: AuthService,
     private route: Router,
-    private tooltipService: TooltipService,
     private cookieService: CookieService,
     private store: Store,
   ) {}
@@ -78,7 +77,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   private handleSigninSuccess(data: UserSigninResponseSuccess): void {
     this.isSubmitForm = false;
     this.message = ErrorsDescription.SUCCESS;
-    this.tooltipService.showTooltip(this.message, true);
+    this.showTooltip(this.message, 'green');
     this.isResponseSuccess = true;
     this.saveCookies(data);
     this.saveProfileToStore(data);
@@ -106,9 +105,21 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     } else {
       this.message = ErrorsDescription.ERROR_SERVER;
     }
-    this.tooltipService.showTooltip(this.message, false);
+    this.showTooltip(this.message, 'red');
     this.isResponseSuccess = false;
     this.authForm.reset();
+  }
+
+  private showTooltip(message: string, color: string) {
+    this.store.dispatch(
+      alertAddAlertAction({
+        tooltip: {
+          message: message,
+          color: color,
+          id: window.crypto.randomUUID()
+        }
+      })
+    );
   }
 
   private saveCookies(data: UserSigninResponseSuccess): void {

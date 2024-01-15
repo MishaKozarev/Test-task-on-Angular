@@ -10,10 +10,10 @@
         <label for="profile">Сообщение</label>
         <input id="profile" type="text">
         <div class="form__btn-container">
-            <button class="form__btn form__btn-error">Ошибка</button>
-            <button class="form__btn form__btn-warning">Предупреждение</button>
-            <button class="form__btn form__btn-success">Успех</button>
-            <button class="form__btn form__btn-message">Сообщение</button>
+            <button (click)="showTooltip(btnError.innerHTML, 'red')" #btnError type="button" class="form__btn form__btn-error">Ошибка</button>
+            <button (click)="showTooltip(btnWarning.innerHTML, 'yellow')" #btnWarning type="button" class="form__btn form__btn-warning">Предупреждение</button>
+            <button (click)="showTooltip(btnSuccess.innerHTML, 'green')" #btnSuccess type="button" class="form__btn form__btn-success">Успех</button>
+            <button (click)="showTooltip(btnMessage.innerHTML, 'blue')" #btnMessage type="button" class="form__btn form__btn-message">Сообщение</button>
         </div>
     </form>
 </div>

@@ -8,9 +8,9 @@
     align-items: center;
     gap: 10px;
     justify-content: flex-start;
-    position: absolute;
-    top: 100px;
-    right: 100px;
+    margin-top: 20px;
+    position: relative;
+    border-left: 5px solid black;
 
     svg {
         margin: 0 0 0 16px;
@@ -35,10 +35,20 @@
     }
 }
 
-.color-success {
+.green {
     border-left: 5px solid #249F5D;
+    fill: #249F5D;
 }
 
-.color-error {
+.red {
     border-left: 5px solid #FC5A5A;
+    fill: #FC5A5A;
+}
+.yellow {
+    border-left: 5px solid #FCCA00;
+    fill: #FCCA00;
+}
+.blue {
+    border-left: 5px solid rgba(76, 84, 244, 1);
+    fill: rgba(76, 84, 244, 1);
 }
