@@ -8,5 +8,12 @@
     flex-direction: column;
     gap: 10px;
     transition: .6s;
+}
 
+@media (max-width: 540px) {
+    .tooltip__container {
+        top:10px;
+        left:50%;
+        transform:translate(-50%, 10px);
+    }
 }

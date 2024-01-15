@@ -3,7 +3,6 @@
     flex-direction: column;
     gap: 30px;
     padding: 67px 51px;
-
 }
 
 .profile {
@@ -53,7 +52,7 @@
     }
 
     input {
-        width: 617px;
+        max-width: 617px;
         height: 48px;
         border: 1px solid rgba(224, 226, 231, 1);
         border-radius: 5px;
@@ -72,7 +71,7 @@
         .form__btn {
             border: none;
             border-radius: 12px;
-            height: 100%;
+            height: 54px;
             font-size: 1.125rem;
             font-weight: 600;
             color: white;
@@ -101,5 +100,25 @@
             width: 181px;
             background: rgba(76, 84, 244, 1);
         }
+    }
+}
+
+@media (max-width: 1240px) {
+    .dashboard {
+        padding: 350px 51px;
+    }
+}
+
+@media (max-width: 740px) {
+    .dashboard {
+        padding: 350px 51px;
+    }
+
+    .form__btn-container {
+        display: flex;
+        flex-direction: column;
+        height: fit-content;
+        gap: 15px;
+        margin: 10px 0 0;
     }
 }
