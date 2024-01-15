@@ -7,7 +7,7 @@ import { UserDataSignin, UserSigninResponse, UserSigninResponseSuccess } from 's
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly urlSignin: string = 'http://51.158.107.27:82/api/login';
+  private readonly urlSignin: string = 'login';
   constructor(private http: HttpClient) {}
 
   public sendSigninRequest(userData: UserDataSignin): Observable<UserSigninResponseSuccess> {

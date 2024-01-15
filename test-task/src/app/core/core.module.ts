@@ -1,6 +1,6 @@
 import { isDevMode, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { StoreModule } from '@ngrx/store';
 import { profileReducer } from '../store/reducers/profile.reducer';
@@ -9,6 +9,7 @@ import { ReducerKey } from '../store/constants/reducer-key.enum';
 import { alertReducer } from '../store/reducers/tooltip.reducers';
 import { TooltipsContainerComponent } from './components/tooltips-container/tooltips-container.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpInterceptorService } from '../auth/interceptors/http-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   exports: [
     TooltipComponent,
     TooltipsContainerComponent
-  ]
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    }
+  ],
 })
 export class CoreModule { }
