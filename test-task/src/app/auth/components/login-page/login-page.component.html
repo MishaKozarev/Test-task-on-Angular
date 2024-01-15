@@ -19,6 +19,7 @@
             <div class="form__item">
                 <label for="inputPassword">Пароль*</label>
                 <input
+                    (click)="getSavedPassword()"
                     formControlName="password"
                     [type]="inputType"
                     placeholder="Минимум 8 символов"
@@ -34,7 +35,7 @@
             </div>
             <div class="form__footer">
                 <label class="form__checkbox" for="inputCheckbox">
-                    <input id="inputCheckbox" type="checkbox">
+                    <input (click)="changeValueCheckbox()" id="inputCheckbox" type="checkbox">
                     <span></span>
                     Запомнить
                 </label>

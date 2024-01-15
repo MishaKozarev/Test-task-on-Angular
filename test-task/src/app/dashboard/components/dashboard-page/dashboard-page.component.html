@@ -4,7 +4,6 @@
         <div class="profile__content">
             <p class="profile__name">{{profile.userName}}</p>
             <p class="profile__id">ID пользователя: <span>{{profile.userId}}</span></p>
-            <p>messageValue:{{messageValue}}</p>
         </div>
     </div>
     <form (ngSubmit)="onSubmitForm()" [formGroup]="messageForm" class="form">

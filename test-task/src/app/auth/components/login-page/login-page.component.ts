@@ -22,11 +22,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   public inputType: string = "password";
   public isSubmitForm: boolean = false;
   public message: string = '';
-  public authForm!: FormGroup<{
-    email: FormControl;
-    password: FormControl;
-  }>
+  public authForm!: FormGroup;
   public isResponseSuccess = false;
+  public isSavePassword: boolean = false;
+  public savedPassword = TokenDescription.SANED_PASSWORD;
   private ngUnsubscribe$ = new Subject<void>();
 
   constructor(
@@ -39,6 +38,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.initForm();
+    this.getSavedPassword();
   }
 
   private initForm(): void {
@@ -46,6 +46,15 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       email: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+  }
+
+  public getSavedPassword(): void {
+    const currentPassword = localStorage.getItem(this.savedPassword);
+    if (currentPassword) {
+      this.authForm.patchValue({
+        password: currentPassword
+      });
+    }
   }
 
   public get email() {
@@ -61,6 +70,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   public onSubmitForm(): void {
+    this.savePassword();
     if (!this.authForm.invalid) {
       const userData: UserDataSignin = {
         login: this.authForm.value.email,
@@ -83,18 +93,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.saveCookies(data);
     this.saveProfileToStore(data);
     this.routingToDashboard();
-  }
-
-  private saveProfileToStore(data: UserSigninResponseSuccess) {
-    const profileDataForAction = {
-      profile: {
-        userId: data.userInfo.userId,
-        userName: data.userInfo.userName,
-        userAvatar: data.userInfo.userAvatar,
-        userRole: data.userInfo.userRole
-      }
-    }
-    this.store.dispatch(getProfileAction(profileDataForAction));
   }
 
   private handleSigninError(err: HttpErrorResponse): void {
@@ -121,6 +119,37 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
+
+  private saveProfileToStore(data: UserSigninResponseSuccess) {
+    const profileDataForAction = {
+      profile: {
+        userId: data.userInfo.userId,
+        userName: data.userInfo.userName,
+        userAvatar: data.userInfo.userAvatar,
+        userRole: data.userInfo.userRole
+      }
+    }
+    this.store.dispatch(getProfileAction(profileDataForAction));
+  }
+
+  private savePassword():void {
+    const currentPassword = localStorage.getItem(this.savedPassword);
+    if (this.isSavePassword) {
+      if (!currentPassword) {
+        localStorage.setItem(this.savedPassword, this.authForm.value.password);
+      }
+    } else {
+      localStorage.removeItem(this.savedPassword);
+    }
+  }
+
+  public isPasswordRemembered() {
+    !!localStorage.getItem(this.savedPassword)
+  }
+
+  public changeValueCheckbox(): void {
+    this.isSavePassword = !this.isSavePassword;
   }
 
   private saveCookies(data: UserSigninResponseSuccess): void {
