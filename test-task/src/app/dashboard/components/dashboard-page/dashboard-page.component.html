@@ -4,16 +4,17 @@
         <div class="profile__content">
             <p class="profile__name">{{profile.userName}}</p>
             <p class="profile__id">ID пользователя: <span>{{profile.userId}}</span></p>
+            <p>messageValue:{{messageValue}}</p>
         </div>
     </div>
-    <form class="form">
+    <form (ngSubmit)="onSubmitForm()" [formGroup]="messageForm" class="form">
         <label for="profile">Сообщение</label>
-        <input id="profile" type="text">
+        <input formControlName="message" id="profile" type="text">
         <div class="form__btn-container">
             <button (click)="showTooltip(btnError.innerHTML, 'red')" #btnError type="button" class="form__btn form__btn-error">Ошибка</button>
-            <button (click)="showTooltip(btnWarning.innerHTML, 'yellow')" #btnWarning type="button" class="form__btn form__btn-warning">Предупреждение</button>
+            <button (click)="showTooltip(btnWarning.innerHTML, 'gold')" #btnWarning type="button" class="form__btn form__btn-warning">Предупреждение</button>
             <button (click)="showTooltip(btnSuccess.innerHTML, 'green')" #btnSuccess type="button" class="form__btn form__btn-success">Успех</button>
-            <button (click)="showTooltip(btnMessage.innerHTML, 'blue')" #btnMessage type="button" class="form__btn form__btn-message">Сообщение</button>
+            <button [disabled]="messageForm.invalid" #btnMessage type="submit" class="form__btn form__btn-message">Сообщение</button>
         </div>
     </form>
 </div>

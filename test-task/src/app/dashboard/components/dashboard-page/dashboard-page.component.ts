@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { UserProfile } from 'src/app/core/models/profile.models';
@@ -14,15 +15,45 @@ import { selectProfile } from 'src/app/store/selectors/profile.selectors';
 export class DashboardPageComponent implements OnInit {
   public profile$: Observable<UserProfile | null> | undefined;
   public color$: Observable<TooltipItem | null> | undefined;
-  public condition = '';
+  public messageForm!: FormGroup<{message: FormControl}>;
+  public messageValue!:string;
 
   constructor(
     private store: Store,
-
-  ) { }
+    private fb: FormBuilder,
+  ) {}
 
   public ngOnInit(): void {
     this.profile$ = this.store.select(selectProfile);
+    this.initForm();
+  }
+
+  private initForm(): void {
+    this.messageForm = this.fb.group({
+      message: ['', Validators.required],
+    });
+  }
+
+  public get message() {
+    return this.messageForm.get('message') as FormControl;
+  }
+
+  public onSubmitForm(): void {
+    if (this.messageForm.status === 'VALID') {
+      const messageValue = this.message.value;
+      this.messageValue = messageValue;
+
+    }
+    this.store.dispatch(
+      alertAddAlertAction({
+        tooltip: {
+          message: this.messageValue,
+          color: 'gold',
+          id: window.crypto.randomUUID()
+        }
+      })
+    );
+    this.messageForm.reset();
   }
 
   public showTooltip(message: string, color: string): void {

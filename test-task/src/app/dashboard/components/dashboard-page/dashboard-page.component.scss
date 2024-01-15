@@ -77,6 +77,11 @@
             font-weight: 600;
             color: white;
             cursor: pointer;
+
+            &:disabled {
+                background: #3d3e41;
+                cursor: no-drop;
+            }
         }
 
         .form__btn-error {
