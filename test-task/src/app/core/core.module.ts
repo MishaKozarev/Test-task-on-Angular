@@ -8,15 +8,17 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ReducerKey } from '../store/constants/reducer-key.enum';
 import { alertReducer } from '../store/reducers/tooltip.reducers';
 import { TooltipsContainerComponent } from './components/tooltips-container/tooltips-container.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     TooltipComponent,
-    TooltipsContainerComponent
+    TooltipsContainerComponent,
   ],
   imports: [
     CommonModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     StoreModule.forRoot({}),
     StoreModule.forFeature(ReducerKey.profileState, profileReducer),
     StoreModule.forFeature(ReducerKey.tooltipState, alertReducer),

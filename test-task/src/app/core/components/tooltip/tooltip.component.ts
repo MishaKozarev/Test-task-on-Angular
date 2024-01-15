@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { alertDeleteNotifyAction } from 'src/app/store/actions/tooltip.actions';
 
-interface InfoNotify {
+interface TooltipData {
   message: string;
   color: string;
   id: string;
@@ -14,7 +14,7 @@ interface InfoNotify {
   styleUrls: ['./tooltip.component.scss']
 })
 export class TooltipComponent implements OnInit {
-  @Input() public notifyInfo!: InfoNotify;
+  @Input() public tooltipData!: TooltipData;
 
   constructor(
     private store: Store,
@@ -25,7 +25,7 @@ export class TooltipComponent implements OnInit {
   }
 
   public deleteNotify() {
-    this.store.dispatch(alertDeleteNotifyAction({ id: this.notifyInfo.id }));
+    this.store.dispatch(alertDeleteNotifyAction({ id: this.tooltipData.id }));
   }
 
 }

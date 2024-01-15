@@ -1,7 +1,12 @@
-.alerts_wrapper {
+.tooltip__container {
     position: absolute;
     right: 30px;
-    top: 50px;
+    top: 70px;
     width: 350px;
     height: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: .6s;
+
 }
