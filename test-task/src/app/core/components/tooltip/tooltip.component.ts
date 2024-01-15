@@ -1,12 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { alertDeleteNotifyAction } from 'src/app/store/actions/tooltip.actions';
-
-interface TooltipData {
-  message: string;
-  color: string;
-  id: string;
-}
+import { TooltipData } from '../../models/tooltip.models';
 
 @Component({
   selector: 'app-tooltip',
@@ -24,7 +19,7 @@ export class TooltipComponent implements OnInit {
     setTimeout(() => this.deleteNotify(), 15000);
   }
 
-  public deleteNotify() {
+  public deleteNotify(): void {
     this.store.dispatch(alertDeleteNotifyAction({ id: this.tooltipData.id }));
   }
 

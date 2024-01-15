@@ -10,11 +10,13 @@ import { alertReducer } from '../store/reducers/tooltip.reducers';
 import { TooltipsContainerComponent } from './components/tooltips-container/tooltips-container.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpInterceptorService } from '../auth/interceptors/http-interceptor.service';
+import { SvgIconComponent } from './components/svg-icon/svg-icon.component';
 
 @NgModule({
   declarations: [
     TooltipComponent,
     TooltipsContainerComponent,
+    SvgIconComponent,
   ],
   imports: [
     CommonModule,
