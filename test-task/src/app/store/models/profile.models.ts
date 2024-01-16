@@ -1,10 +1,5 @@
-export interface UserProfile {
-  userId: number,
-  userName: string,
-  userAvatar: string,
-  userRole: number
-}
+import { UserInfo } from "src/app/auth/models/user-data.models";
 
 export interface ProfileState {
-  dataUserprofile: UserProfile;
+  dataUserProfile: UserInfo;
 }

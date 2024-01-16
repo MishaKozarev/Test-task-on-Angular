@@ -1,8 +1,3 @@
-export interface UserDataSignin {
-  login: string;
-  password: string;
-}
-
 export interface UserSigninResponse {
   hasError: true,
   errors: [
@@ -13,14 +8,21 @@ export interface UserSigninResponse {
 }
 
 export interface UserSigninResponseSuccess {
-  userInfo: {
-    userId: number,
-    userName: string,
-    userAvatar: string,
-    userRole: number
-  },
+  userInfo: UserInfo,
   tokens: {
     token: string,
     refreshToken: string
   }
+}
+
+export interface UserInfo {
+  userId: number,
+  userName: string,
+  userAvatar: string,
+  userRole: number
+}
+
+export interface UserDataSignin {
+  login: string;
+  password: string;
 }

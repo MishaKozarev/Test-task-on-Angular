@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { TooltipItem } from 'src/app/store/models/tooltip.models';
 import { selectAlertNotifies } from 'src/app/store/selectors/tooltip.selectors';
 import { tooltipAnimation } from '../../animations/tooltip.animation';
+import { TooltipData } from '../../models/tooltip.models';
 
 
 @Component({
@@ -14,7 +14,7 @@ import { tooltipAnimation } from '../../animations/tooltip.animation';
 })
 
 export class TooltipsContainerComponent implements OnInit {
-  public tooltipItems$!: Observable<TooltipItem[]>;
+  public tooltipItems$!: Observable<TooltipData[]>;
 
   constructor(private store: Store) { }
 

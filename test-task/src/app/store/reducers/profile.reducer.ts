@@ -3,7 +3,7 @@ import { getProfileAction } from "../actions/profile.actions";
 import { ProfileState } from "../models/profile.models";
 
 export const initialStateProfile: ProfileState = {
-  dataUserprofile: {
+  dataUserProfile: {
     userId: 0,
     userName: '',
     userAvatar: '',
@@ -17,7 +17,7 @@ export const profileReducer = createReducer(
     getProfileAction,
     (state, { profile }): ProfileState => ({
       ...state,
-      dataUserprofile: profile,
+      dataUserProfile: profile,
     })
   ),
 );

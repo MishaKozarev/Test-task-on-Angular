@@ -1,9 +1,5 @@
-export interface TooltipItem {
-    message: string;
-    color: string;
-    id: string;
-  }
+import { TooltipData } from "src/app/core/models/tooltip.models";
 
   export interface TooltipState {
-    tooltips: TooltipItem[];
+    tooltips: TooltipData[];
   }

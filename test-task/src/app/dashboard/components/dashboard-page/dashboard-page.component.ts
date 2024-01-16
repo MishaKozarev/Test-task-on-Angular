@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { UserProfile } from 'src/app/core/models/profile.models';
+import { UserInfo } from 'src/app/auth/models/user-data.models';
+import { TooltipData } from 'src/app/core/models/tooltip.models';
 import { alertAddAlertAction } from 'src/app/store/actions/tooltip.actions';
-import { TooltipItem } from 'src/app/store/models/tooltip.models';
 import { selectProfile } from 'src/app/store/selectors/profile.selectors';
 import { TooltipButtonText, TooltipColor, TooltipMessages } from '../../constants/tooltip-data.enum';
 
@@ -14,26 +14,13 @@ import { TooltipButtonText, TooltipColor, TooltipMessages } from '../../constant
   styleUrls: ['./dashboard-page.component.scss']
 })
 export class DashboardPageComponent implements OnInit {
-  public profile$: Observable<UserProfile | null> | undefined;
-  public color$: Observable<TooltipItem | null> | undefined;
+  public profile$: Observable<UserInfo | null> | undefined;
+  public color$: Observable<TooltipData | null> | undefined;
   public messageForm!: FormGroup<{message: FormControl}>;
   public messageValue!:string;
-  public tooltipMessages = {
-    error: TooltipMessages.error,
-    warning: TooltipMessages.warning,
-    success: TooltipMessages.success
-  };
-  public tooltipColor = {
-    red: TooltipColor.red,
-    gold: TooltipColor.gold,
-    green: TooltipColor.green,
-  }
-  public buttonText = {
-    error: TooltipButtonText.error,
-    message: TooltipButtonText.message,
-    success: TooltipButtonText.success,
-    warning: TooltipButtonText.warning,
-  }
+  public tooltipMessages = TooltipMessages;
+  public tooltipColor = TooltipColor;
+  public buttonText = TooltipButtonText;
 
   constructor(
     private store: Store,
@@ -59,7 +46,6 @@ export class DashboardPageComponent implements OnInit {
     if (!this.messageForm.invalid) {
       const messageValue = this.message.value;
       this.messageValue = messageValue;
-
     }
     this.store.dispatch(
       alertAddAlertAction({

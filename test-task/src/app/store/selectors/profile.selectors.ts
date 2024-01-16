@@ -7,5 +7,5 @@ export const selectProfileState =
 
 export const selectProfile = createSelector(
   selectProfileState,
-  (state) => state.dataUserprofile
+  (state) => state.dataUserProfile
 );

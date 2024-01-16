@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserDataSignin, UserSigninResponse, UserSigninResponseSuccess } from 'src/app/auth/models/user-data.models';
+import { UserDataSignin, UserSigninResponseSuccess } from 'src/app/auth/models/user-data.models';
 
 @Injectable({
   providedIn: 'root'
