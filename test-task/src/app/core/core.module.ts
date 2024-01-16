@@ -8,7 +8,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ReducerKey } from '../store/constants/reducer-key.enum';
 import { alertReducer } from '../store/reducers/tooltip.reducers';
 import { TooltipsContainerComponent } from './components/tooltips-container/tooltips-container.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpInterceptorService } from '../auth/interceptors/http-interceptor.service';
 import { SvgIconComponent } from './components/svg-icon/svg-icon.component';
 
@@ -21,7 +20,6 @@ import { SvgIconComponent } from './components/svg-icon/svg-icon.component';
   imports: [
     CommonModule,
     HttpClientModule,
-    BrowserAnimationsModule,
     StoreModule.forRoot({}),
     StoreModule.forFeature(ReducerKey.profileState, profileReducer),
     StoreModule.forFeature(ReducerKey.tooltipState, alertReducer),
