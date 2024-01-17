@@ -14,4 +14,54 @@ body {
     margin: 0; padding: 0; font-family: 'Inter', sans-serif;
 }
 
+$font-auxiliary: 'DM Sans', sans-serif;
+
+$color-white: white;
+$color-black: black;
+
+$color-tooltip-box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
+$color-tooltip-close: rgba(111, 114, 122, 0.5);
+
+$color-tooltip-green: #249F5D;
+$color-tooltip-red: #FC5A5A;
+$color-tooltip-gold: #FCCA00;
+$color-tooltip-blue: rgba(76, 84, 244, 1);
+
+$color-dashboard-text: rgba(16, 29, 45, 1);
+
+$color-subtitle: #6F727A;
+
+$color-checkbox: #4C54F4;
+$color-btn-disabled: #3d3e41;
+
+$color-input-border: #a9abad;
+$color-input-dashboard-border: #a9abad;
+$color-input-placeholder: #6F727A;
+
+$logo-auth: url('../../../../assets/logo-auth-page.svg');
+$logo-eye: url('../../../../assets/icon-eye.svg');
+$logo-eye-active: url('../../../../assets/icon-eye-closed.svg');
+$logo-check-mark: '\2713';
+
+@mixin tooltip-color($color) {
+    border-left: 5px solid $color;
+    fill: $color;
+}
+
+@mixin view-btn($color, $width) {
+    background: $color;
+    width: $width;
+}
+
+@mixin font-size-weigh($size, $weigh) {
+    font-size: $size;
+    font-weight: $weigh;
+}
+
+%flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+
 

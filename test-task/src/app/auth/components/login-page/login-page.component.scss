@@ -1,58 +1,54 @@
+@import '../../../../styles.scss';
+
 .auth {
-    width: 410px;
-    margin: 273px auto 0;
-    display: flex;
-    flex-direction: column;
+    @extend %flex-column;
     align-items: center;
     gap: 100px;
+    width: 410px;
+    margin: 273px auto 0;
 
     &__logo {
         width: 100px;
         height: 69px;
-        background: url('../../../../assets/logo-auth-page.svg');
+        background: $logo-auth;
     }
     &__title {
-        font-weight: 700;
-        font-size: 2,25rem;
+        @include font-size-weigh(2.25rem, 700);
         margin: 0 0 15px;
     }
 
     &__subtitle {
-        font-weight: 400;
-        color: #6F727A;
+        @include font-size-weigh(1rem, 400);
+        color: $color-subtitle;
         margin: 0 0 15px;
     }
 
     .form {
-        display: flex;
-        flex-direction: column;
+        @extend %flex-column;
         gap: 30px;
 
         &__item {
-            display: flex;
-            flex-direction: column;
+            @extend %flex-column;
             gap: 10px;
             height: 74px;
             position: relative;
 
             label {
+                @include font-size-weigh(0.875rem, 700);
                 font-family: 'DM Sans', sans-serif;
-                font-size: 0.875rem;
-                font-weight: 700;
             }
 
             input {
                 height: 50px;
-                border: 1px solid #a9abad;
+                border: 1px solid $color-input-border;
                 border-radius: 5px;
                 padding: 0 10px;
-                font-size: 0.875rem;
-                font-weight: 400;
+                @include font-size-weigh(0.875rem, 400);
                 letter-spacing: 1px;
             }
 
             input::placeholder {
-                color: #6F727A;
+                color: $color-input-placeholder;
             }
 
             button {
@@ -67,13 +63,13 @@
             }
 
             .icon-eye {
-                background: url('../../../../assets/icon-eye.svg');
+                background: $logo-eye;
                 width: 100%;
                 height: 14px;
             }
 
             .icon-eye.active {
-                background: url('../../../../assets/icon-eye-closed.svg');
+                background: $logo-eye-active;
                 height: 7px;
             }
         }
@@ -98,34 +94,32 @@
                 display: inline-block;
                 width: 16px;
                 height: 16px;
-                border: 1px solid #4C54F4;
+                border: 1px solid $color-checkbox;
                 border-radius: 5px;
                 position: relative;
 
             }
 
             span::before {
-                content: '\2713';
+                content: $logo-check-mark;
                 position: absolute;
-                font-size: 0.7rem;
-                font-weight: 700;
+                @include font-size-weigh(0.7rem, 700);
                 top: -1px;
                 right: -1px;
-                color: white;
+                color: $color-white;
                 width: 12px;
                 height: 10px;
                 transition: .3s;
             }
 
             input:checked + span{
-                background: #4C54F4;
+                background: $color-checkbox;
             }
         }
         a {
             cursor: pointer;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: #4C54F4;
+            @include font-size-weigh(0.875rem, 500);
+            color: $color-checkbox;
 
         }
 
@@ -134,15 +128,14 @@
             height: 54px;
             border: none;
             border-radius: 12px;
-            background: #4C54F4;
-            color: white;
+            background: $color-checkbox;
+            color: $color-white;
             align-self: center;
-            font-size: 1.125rem;
-            font-weight: 500;
+            @include font-size-weigh(1.125rem, 500);
             cursor: pointer;
         }
         &__btn:disabled {
-            background: #3d3e41;
+            background: $color-btn-disabled;
         }
     }
 }

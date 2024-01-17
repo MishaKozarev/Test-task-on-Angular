@@ -1,11 +1,11 @@
+@import '../../../../styles.scss';
+
 .tooltip__container {
+    @extend %flex-column;
     position: absolute;
     right: 30px;
     top: 70px;
     width: 350px;
-    height: max-content;
-    display: flex;
-    flex-direction: column;
     gap: 10px;
     transition: .6s;
 }

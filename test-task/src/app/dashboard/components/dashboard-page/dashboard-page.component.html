@@ -1,28 +1,25 @@
-<div class="dashboard">
-    <div class="profile" *ngIf="profile$ | async as profile">
-        <img [src]="profile.userAvatar" class="profile__avatar" alt="avatar">
-        <div class="profile__content">
-            <p class="profile__name">{{profile.userName}}</p>
-            <p class="profile__id">ID пользователя: <span>{{profile.userId}}</span></p>
-        </div>
+<div class="profile" *ngIf="profile$ | async as profile">
+    <img [src]="profile.userAvatar" class="profile__avatar" alt="avatar">
+    <div class="profile__content">
+        <p class="profile__name">{{profile.userName}}</p>
+        <p class="profile__id">ID пользователя: <span>{{profile.userId}}</span></p>
     </div>
-    <form (ngSubmit)="onSubmitForm()" [formGroup]="messageForm" class="form">
-        <label for="profile">Сообщение</label>
-        <input formControlName="message" id="profile" type="text">
-        <div class="form__btn-container">
-            <button (click)="showTooltip(tooltipMessages.error, tooltipColor.red)"
-                type="button"
-                class="form__btn form__btn-error">{{buttonText.error}}</button>
-            <button (click)="showTooltip(tooltipMessages.warning, tooltipColor.gold)"
-                type="button"
-                class="form__btn form__btn-warning">{{buttonText.message}}</button>
-            <button (click)="showTooltip(tooltipMessages.success, tooltipColor.green)"
-                type="button"
-                class="form__btn form__btn-success">{{buttonText.success}}</button>
-            <button [disabled]="messageForm.invalid"
-                type="submit"
-                class="form__btn form__btn-message">{{buttonText.warning}}</button>
-        </div>
-    </form>
 </div>
-
+<form (ngSubmit)="onSubmitForm()" [formGroup]="messageForm" class="form">
+    <label for="profile">Сообщение</label>
+    <input formControlName="message" id="profile" type="text">
+    <div class="form__btn-container">
+        <button (click)="showTooltip(tooltipMessages.error, tooltipColor.red)"
+            type="button"
+            class="form__btn form__btn-error">{{buttonText.error}}</button>
+        <button (click)="showTooltip(tooltipMessages.warning, tooltipColor.gold)"
+            type="button"
+            class="form__btn form__btn-warning">{{buttonText.message}}</button>
+        <button (click)="showTooltip(tooltipMessages.success, tooltipColor.green)"
+            type="button"
+            class="form__btn form__btn-success">{{buttonText.success}}</button>
+        <button [disabled]="messageForm.invalid"
+            type="submit"
+            class="form__btn form__btn-message">{{buttonText.warning}}</button>
+    </div>
+</form>
